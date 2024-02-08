@@ -47,8 +47,7 @@ def filter_querries(request, id):
     return JsonResponse(querry, safe=False)
 
 class QuerryView(View):
-    def get(self, request, id):
-        queries = [
+    queries = [
             {
                 "id": 1,
                 "title": "title1",
@@ -74,23 +73,28 @@ class QuerryView(View):
                 "submitted_by": "submitted_by3",
             }
         ]
+    def get(self, request, id):
+        
 
-        filtered_query = [query for query in queries if query["id"] == id]
+        filtered_query = [query for query in self.queries if query["id"] == id]
 
         querry = filtered_query[0]
 
         return JsonResponse(querry, safe=False)
-
-    def post(self, request):
-        return JsonResponse({'message': 'POST method is not allowed'}, status=405)
-
-    def put(self, request):
-        return JsonResponse({'message': 'PUT method is not allowed'}, status=405)
-
-    def delete(self, request):
-        return JsonResponse({'message': 'DELETE method is not allowed'}, status=405)
     
-    def patch(self, request):
-        return JsonResponse({'message': 'PATCH method is not allowed'}, status=405)
+    def get(self, request):
+        return JsonResponse(self.queries, safe=False)
+
+    # def post(self, request):
+    #     return JsonResponse({'message': 'POST method is not allowed'}, status=405)
+
+    # def put(self, request):
+    #     return JsonResponse({'message': 'PUT method is not allowed'}, status=405)
+
+    # def delete(self, request):
+    #     return JsonResponse({'message': 'DELETE method is not allowed'}, status=405)
+    
+    # def patch(self, request):
+    #     return JsonResponse({'message': 'PATCH method is not allowed'}, status=405)
 
 
