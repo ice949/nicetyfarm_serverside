@@ -11,11 +11,11 @@ class IMUser(models.Model):
         ADMIN_STAFF = 'admin_staff'
         ADMIN = 'admin'
 
-    first_name=models.CharField(default='',max_length=1000)
-    last_name=models.CharField(default='', max_length=1000)
-    email=models.EmailField(default='', max_length=1000)
+    first_name=models.CharField(default='',max_length=100)
+    last_name=models.CharField(default='', max_length=100)
+    email=models.EmailField(default='', max_length=100)
     is_active=models.BooleanField(default=True)
-    user_type=models.CharField(choices=UserType.choices, max_length=1000, default=UserType.EIT)
+    user_type=models.CharField(choices=UserType.choices, max_length=100, default=UserType.EIT)
     date_created=models.DateTimeField(auto_now_add=True, blank=True, null=True)
     date_modified=models.DateTimeField(auto_now=True, blank=True, null=True)
 
@@ -23,7 +23,7 @@ class IMUser(models.Model):
         return f"{self.first_name} {self.last_name} {self.email}"
     
 class Cohort(models.Model):
-    name=models.CharField(default='',max_length=1000)
+    name=models.CharField(default='',max_length=100)
     description=models.TextField(default='', blank=True, null=True)
     start_date=models.DateTimeField(blank=True, null=True)
     end_date=models.DateTimeField(blank=True, null=True)
