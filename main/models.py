@@ -61,12 +61,12 @@ class Query(models.Model):
     def __str__(self):
         return f"{self.title}"
     
-# class QueryComment(models.Model):
-#     query = models.ForeignKey(Query, on_delete=models.CASCADE, related_name='comments_query')
-#     comment=models.TextField(default='', max_length=1000, blank=True, null=True)
-#     date_created=models.DateTimeField(auto_now_add=True, blank=True, null=True)
-#     date_modified=models.DateTimeField(auto_now=True, blank=True, null=True)
-#     author = models.ForeignKey(IMUser, on_delete=models.CASCADE, related_name='comments_author')
+class QueryComment(models.Model):
+    query = models.ForeignKey(Query, on_delete=models.CASCADE, related_name='comments_query')
+    comment=models.TextField(default='', max_length=1000, blank=True, null=True)
+    date_created=models.DateTimeField(auto_now_add=True, blank=True, null=True)
+    date_modified=models.DateTimeField(auto_now=True, blank=True, null=True)
+    author = models.ForeignKey(IMUser, on_delete=models.CASCADE, related_name='comments_author')
 
-#     def __str__(self):
-#         return f"{self.query} {self.comment}"
+    def __str__(self):
+        return f"{self.query} {self.comment}"
