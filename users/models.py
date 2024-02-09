@@ -6,10 +6,10 @@ from django.db import models
 class IMUser(models.Model):
 
     class UserType(models.TextChoices):
-        EIT = 'eit'
-        TEACHING_FELLOW = 'teaching_fellow'
-        ADMIN_STAFF = 'admin_staff'
-        ADMIN = 'admin'
+        EIT = 'EIT'
+        TEACHING_FELLOW = 'TEACHING_FELLOW'
+        ADMIN_STAFF = 'ADMIN_STAFF'
+        ADMIN = 'ADMIN'
 
     first_name=models.CharField(default='',max_length=100)
     last_name=models.CharField(default='', max_length=100)

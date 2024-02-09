@@ -25,19 +25,48 @@ class ClassSchedule(models.Model):
     cohort = models.ForeignKey(Cohort, on_delete=models.CASCADE, related_name='classschedule_cohort')
     venue = models.CharField(default="", max_length=100)
     date_created=models.DateTimeField(auto_now_add=True, blank=True, null=True)
-    date_updated=models.DateTimeField(auto_now=True, blank=True, null=True)
+    date_modified=models.DateTimeField(auto_now=True, blank=True, null=True)
     course = models.ForeignKey(Course, on_delete=models.CASCADE, related_name='classschedule_course')
 
     def __str__(self):
         return f"{self.title}"
 
-# class ClassAttendance(models.Model):
-#     class_schedule = models.ForeignKey(ClassSchedule, on_delete=models.CASCADE, related_name='classattendance_classschedule')
-#     attendee = models.ForeignKey(IMUser, on_delete=models.CASCADE, related_name='classattendance_member')
-#     is_present = models.BooleanField(default=False)
+class ClassAttendance(models.Model):
+    class_schedule = models.ForeignKey(ClassSchedule, on_delete=models.CASCADE, related_name='classattendance_classschedule')
+    attendee = models.ForeignKey(IMUser, on_delete=models.CASCADE, related_name='classattendance_member')
+    is_present = models.BooleanField(default=False)
+    date_created=models.DateTimeField(auto_now_add=True, blank=True, null=True)
+    date_modified=models.DateTimeField(auto_now=True, blank=True, null=True)
+    author = models.ForeignKey(IMUser, on_delete=models.CASCADE, related_name='classattendance_author')
+
+    def __str__(self):
+        return f"{self.class_schedule} {self.member}"
+    
+class Query(models.Model):
+
+    class Status(models.TextChoices):
+        PENDING = 'PENDING'
+        IN_PROGRESS = 'IN_PROGRESS'
+        DECLINED = 'DECLINED'
+        RESOLVED = 'RESOLVED'
+
+    title=models.CharField(default="", max_length=200)
+    description=models.TextField(default='', max_length=1000, blank=True, null=True)
+    submitted_by=models.ForeignKey(IMUser, on_delete=models.CASCADE, related_name='queries_submitted_by')
+    resolution_status = models.CharField(choices=Status.choices, max_length=100, default=Status.PENDING)
+    date_created=models.DateTimeField(auto_now_add=True, blank=True, null=True)
+    date_modified=models.DateTimeField(auto_now=True, blank=True, null=True)
+    author = models.ForeignKey(IMUser, on_delete=models.CASCADE, related_name='queries_author')
+
+    def __str__(self):
+        return f"{self.title}"
+    
+# class QueryComment(models.Model):
+#     query = models.ForeignKey(Query, on_delete=models.CASCADE, related_name='comments_query')
+#     comment=models.TextField(default='', max_length=1000, blank=True, null=True)
 #     date_created=models.DateTimeField(auto_now_add=True, blank=True, null=True)
-#     date_updated=models.DateTimeField(auto_now=True, blank=True, null=True)
-#     author = models.ForeignKey(IMUser, on_delete=models.CASCADE, related_name='classattendance_author')
+#     date_modified=models.DateTimeField(auto_now=True, blank=True, null=True)
+#     author = models.ForeignKey(IMUser, on_delete=models.CASCADE, related_name='comments_author')
 
 #     def __str__(self):
-#         return f"{self.class_schedule} {self.member}"
+#         return f"{self.query} {self.comment}"
