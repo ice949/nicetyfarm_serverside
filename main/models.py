@@ -14,19 +14,25 @@ class Course(models.Model):
         return f"{self.name}"
     
 class ClassSchedule(models.Model):
+
+    class RepeatFrequency(models.TextChoices):
+        DAILY = 'DAILY'
+        WEEKLY = 'WEEKLY'
+        MONTHLY = 'MONTHLY'
+        YEARLY = 'YEARLY'
+
     title=models.CharField(default="", max_length=200)
     description=models.TextField(default='', max_length=1000, blank=True, null=True)
     start_date_and_time=models.DateTimeField(blank=True, null=True)
     end_date_and_time=models.DateTimeField(blank=True, null=True)
     is_repeated = models.BooleanField(default=True)
-    repeat_frequency = models.CharField(default="50", max_length=1000)
+    repeat_frequency = models.CharField(choices = RepeatFrequency.choices, default=RepeatFrequency.DAILY, max_length=1000)
     is_active = models.BooleanField(default=True)
     organizer = models.ForeignKey(IMUser, on_delete=models.CASCADE, related_name='classschedule_organizer')
     cohort = models.ForeignKey(Cohort, on_delete=models.CASCADE, related_name='classschedule_cohort')
     venue = models.CharField(default="", max_length=100)
     date_created=models.DateTimeField(auto_now_add=True, blank=True, null=True)
     date_modified=models.DateTimeField(auto_now=True, blank=True, null=True)
-    course = models.ForeignKey(Course, on_delete=models.CASCADE, related_name='classschedule_course')
 
     def __str__(self):
         return f"{self.title}"
