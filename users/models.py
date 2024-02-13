@@ -1,9 +1,10 @@
 from django.db import models
+from django.contrib.auth.models import AbstractUser
 
 # Create your models here.
     
 
-class IMUser(models.Model):
+class IMUser(AbstractUser):
 
     class UserType(models.TextChoices):
         EIT = 'EIT'
@@ -12,6 +13,8 @@ class IMUser(models.Model):
         ADMIN = 'ADMIN'
 
     first_name=models.CharField(default='',max_length=100)
+    username=models.CharField(default='', max_length=100, unique=True)
+    password=models.CharField(default='', max_length=100)
     last_name=models.CharField(default='', max_length=100)
     email=models.EmailField(default='', max_length=100)
     is_active=models.BooleanField(default=True)
