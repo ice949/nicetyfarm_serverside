@@ -16,6 +16,7 @@ class IMUser(AbstractUser):
     username=models.CharField(default='', max_length=100, unique=True)
     last_name=models.CharField(default='', max_length=100)
     email=models.EmailField(default='', max_length=100)
+    phone_number=models.CharField(default='', max_length=100)
     is_active=models.BooleanField(default=True)
     user_type=models.CharField(choices=UserType.choices, max_length=100, default=UserType.EIT)
     date_created=models.DateTimeField(auto_now_add=True, blank=True, null=True)
