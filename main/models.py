@@ -30,6 +30,8 @@ class ClassSchedule(models.Model):
     is_active = models.BooleanField(default=True)
     organizer = models.ForeignKey(IMUser, on_delete=models.CASCADE, related_name='classschedule_organizer')
     cohort = models.ForeignKey(Cohort, on_delete=models.CASCADE, related_name='classschedule_cohort')
+    course = models.ForeignKey(Course, on_delete=models.CASCADE, related_name='classschedule_course')
+    facilitator = models.ForeignKey(IMUser, on_delete=models.CASCADE, related_name='classschedule_facilitator')
     venue = models.CharField(default="", max_length=100)
     date_created=models.DateTimeField(auto_now_add=True, blank=True, null=True)
     date_modified=models.DateTimeField(auto_now=True, blank=True, null=True)
